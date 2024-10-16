@@ -21,12 +21,14 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install SonarScanner
+        run: |
+          sudo apt-get install -y sonar-scanner
 
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          pip install sonar-scanner
           sonar-scanner \
             -Dsonar.projectKey=aayush-1507 \
             -Dsonar.organization=Devops \
