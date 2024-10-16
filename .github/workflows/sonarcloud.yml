@@ -21,18 +21,15 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install SonarScanner
+      - name: Install dependencies
         run: |
-          SCANNER_VERSION=4.7.0.2747
-          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/$SCANNER_VERSION/sonar-scanner-cli-$SCANNER_VERSION-linux.zip
-          unzip sonar-scanner-cli-$SCANNER_VERSION-linux.zip
-          sudo mv sonar-scanner-$SCANNER_VERSION-linux /opt/sonar-scanner
-          echo 'export PATH=$PATH:/opt/sonar-scanner/bin' >> $GITHUB_ENV
+          pip install -r requirements.txt
 
       - name: SonarCloud Scan
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
+          pip install sonar-scanner
           sonar-scanner \
             -Dsonar.projectKey=aayush-1507 \
             -Dsonar.organization=Devops \
